@@ -96,9 +96,9 @@ export const EditorPanel = ({
             More design options coming soon!
           </p>
           <div className="flex gap-2">
-            <div className="w-8 h-8 rounded bg-creative-orange cursor-pointer border-2 border-transparent hover:border-primary" />
             <div className="w-8 h-8 rounded bg-creative-blue cursor-pointer border-2 border-transparent hover:border-primary" />
-            <div className="w-8 h-8 rounded bg-creative-purple cursor-pointer border-2 border-transparent hover:border-primary" />
+            <div className="w-8 h-8 rounded bg-creative-green cursor-pointer border-2 border-transparent hover:border-primary" />
+            <div className="w-8 h-8 rounded bg-creative-teal cursor-pointer border-2 border-transparent hover:border-primary" />
           </div>
         </CardContent>
       </Card>

@@ -62,12 +62,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				'creative-orange': 'hsl(var(--creative-orange))',
-				'creative-orange-light': 'hsl(var(--creative-orange-light))',
 				'creative-blue': 'hsl(var(--creative-blue))',
 				'creative-blue-light': 'hsl(var(--creative-blue-light))',
-				'creative-purple': 'hsl(var(--creative-purple))',
-				'creative-purple-light': 'hsl(var(--creative-purple-light))'
+				'creative-green': 'hsl(var(--creative-green))',
+				'creative-green-light': 'hsl(var(--creative-green-light))',
+				'creative-teal': 'hsl(var(--creative-teal))',
+				'creative-teal-light': 'hsl(var(--creative-teal-light))'
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

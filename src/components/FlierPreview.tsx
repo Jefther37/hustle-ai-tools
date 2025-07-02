@@ -13,11 +13,11 @@ export const FlierPreview = ({ templateId, text, className }: FlierPreviewProps)
       case "sale":
         return "bg-gradient-primary text-white";
       case "event":
-        return "bg-gradient-secondary text-foreground";
+        return "bg-gradient-secondary text-creative-blue";
       case "service":
         return "bg-creative-blue text-white";
       case "promo":
-        return "bg-creative-purple text-white";
+        return "bg-creative-teal text-white";
       default:
         return "bg-muted text-muted-foreground";
     }
