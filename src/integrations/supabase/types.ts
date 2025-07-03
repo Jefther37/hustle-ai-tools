@@ -94,32 +94,120 @@ export type Database = {
           },
         ]
       }
+      template_ratings: {
+        Row: {
+          created_at: string
+          id: string
+          rating: number | null
+          template_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          rating?: number | null
+          template_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          rating?: number | null
+          template_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "template_ratings_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       templates: {
         Row: {
+          background_config: Json | null
           category: string | null
+          color_scheme: Json | null
           created_at: string | null
+          created_by: string | null
+          description: string | null
+          font_config: Json | null
           id: string
           is_premium: boolean | null
+          layout_config: Json | null
           name: string | null
           preview_url: string | null
         }
         Insert: {
+          background_config?: Json | null
           category?: string | null
+          color_scheme?: Json | null
           created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          font_config?: Json | null
           id?: string
           is_premium?: boolean | null
+          layout_config?: Json | null
           name?: string | null
           preview_url?: string | null
         }
         Update: {
+          background_config?: Json | null
           category?: string | null
+          color_scheme?: Json | null
           created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          font_config?: Json | null
           id?: string
           is_premium?: boolean | null
+          layout_config?: Json | null
           name?: string | null
           preview_url?: string | null
         }
         Relationships: []
+      }
+      user_designs: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          template_id: string | null
+          title: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: Json
+          created_at?: string
+          id?: string
+          template_id?: string | null
+          title?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          template_id?: string | null
+          title?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_designs_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "templates"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       users: {
         Row: {

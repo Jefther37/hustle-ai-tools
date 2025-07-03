@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useTemplates } from "@/hooks/useTemplates";
 
 interface FlierPreviewProps {
   templateId: string | null;
@@ -8,19 +9,42 @@ interface FlierPreviewProps {
 }
 
 export const FlierPreview = ({ templateId, text, className }: FlierPreviewProps) => {
-  const getTemplateStyle = (id: string | null) => {
-    switch (id) {
-      case "sale":
-        return "bg-gradient-primary text-white";
-      case "event":
-        return "bg-gradient-secondary text-creative-blue";
-      case "service":
-        return "bg-creative-blue text-white";
-      case "promo":
-        return "bg-creative-teal text-white";
-      default:
-        return "bg-muted text-muted-foreground";
+  const { data: templates } = useTemplates();
+  
+  const selectedTemplate = templates?.find(t => t.id === templateId);
+  
+  const getTemplateStyle = (template: any) => {
+    if (!template?.background_config) {
+      return "bg-muted text-muted-foreground";
     }
+
+    const { background_config, color_scheme } = template;
+    
+    if (background_config.type === "gradient" && background_config.colors) {
+      return `text-white`;
+    } else if (background_config.type === "solid" && background_config.color) {
+      return `text-white`;
+    }
+    
+    return "bg-muted text-muted-foreground";
+  };
+
+  const getBackgroundStyle = (template: any) => {
+    if (!template?.background_config) return {};
+
+    const { background_config } = template;
+    
+    if (background_config.type === "gradient" && background_config.colors) {
+      return {
+        background: `linear-gradient(135deg, ${background_config.colors.join(", ")})`
+      };
+    } else if (background_config.type === "solid" && background_config.color) {
+      return {
+        backgroundColor: background_config.color
+      };
+    }
+    
+    return {};
   };
 
   return (
@@ -28,22 +52,20 @@ export const FlierPreview = ({ templateId, text, className }: FlierPreviewProps)
       <div 
         className={cn(
           "aspect-[3/4] p-6 flex flex-col justify-center items-center text-center transition-all duration-300",
-          getTemplateStyle(templateId)
+          getTemplateStyle(selectedTemplate)
         )}
+        style={getBackgroundStyle(selectedTemplate)}
       >
-        {templateId ? (
+        {templateId && selectedTemplate ? (
           <div className="space-y-4">
             <div className="text-xs opacity-75 uppercase tracking-wide">
-              {templateId === "sale" && "SPECIAL OFFER"}
-              {templateId === "event" && "EVENT ANNOUNCEMENT"}
-              {templateId === "service" && "PROFESSIONAL SERVICE"}
-              {templateId === "promo" && "LIMITED TIME"}
+              {selectedTemplate.category.toUpperCase()}
             </div>
-            <div className="font-bold text-lg leading-tight">
+            <div className="font-bold text-lg leading-tight whitespace-pre-line">
               {text || "Your text will appear here..."}
             </div>
             <div className="text-xs opacity-75">
-              Contact us for more details
+              {selectedTemplate.description || "Contact us for more details"}
             </div>
           </div>
         ) : (
