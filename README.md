@@ -1,5 +1,7 @@
 # Welcome to your Lovable project
 
+The project is live at: https://hustle-ai-tools.lovable.app
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/d4ba4616-1624-4739-9968-ec917cde28f0
