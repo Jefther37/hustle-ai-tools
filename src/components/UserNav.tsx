@@ -1,12 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { User, LogOut, Settings, History } from "lucide-react";
+import { User, LogOut, Settings, History, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 export const UserNav = () => {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  // Check if user is admin
+  const { data: userData } = useQuery({
+    queryKey: ["user-role", user?.id],
+    queryFn: async () => {
+      if (!user) return null;
+      const { data, error } = await supabase
+        .from("users")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!user,
+  });
 
   const handleSignOut = async () => {
     try {
@@ -56,6 +77,12 @@ export const UserNav = () => {
           <History className="mr-2 h-4 w-4" />
           My Designs
         </DropdownMenuItem>
+        {userData?.role === "admin" && (
+          <DropdownMenuItem onClick={() => navigate("/admin")}>
+            <Shield className="mr-2 h-4 w-4" />
+            Admin Dashboard
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>
           <Settings className="mr-2 h-4 w-4" />
           Settings
